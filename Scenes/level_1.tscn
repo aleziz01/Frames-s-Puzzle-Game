@@ -1,0 +1,105 @@
+[gd_scene load_steps=9 format=3 uid="uid://cj0m8rb8jqygv"]
+
+[ext_resource type="Script" path="res://Scripts/level.gd" id="1_o3lpu"]
+[ext_resource type="PackedScene" uid="uid://chhokv5o8qhq8" path="res://Scenes/flag.tscn" id="1_qirsa"]
+[ext_resource type="PackedScene" uid="uid://4t68xpd6hd2i" path="res://Scenes/block.tscn" id="2_032um"]
+[ext_resource type="PackedScene" uid="uid://c6f8myw5tam3j" path="res://Scenes/star.tscn" id="3_v4780"]
+
+[sub_resource type="Gradient" id="Gradient_438gd"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2d8l5"]
+gradient = SubResource("Gradient_438gd")
+fill_from = Vector2(0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aapga"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_4hc04"]
+
+[node name="Level1" type="Node2D"]
+script = ExtResource("1_o3lpu")
+
+[node name="Lighting" type="Node2D" parent="."]
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="Lighting"]
+rotation = 0.872665
+color = Color(0.442911, 0.442911, 0.442911, 1)
+energy = 0.42
+shadow_enabled = true
+
+[node name="PointLight2D" type="PointLight2D" parent="Lighting"]
+position = Vector2(-0.5, 1.5)
+scale = Vector2(18.2344, 10.2344)
+energy = 0.2
+texture = SubResource("GradientTexture2D_2d8l5")
+
+[node name="Blocks" type="Node2D" parent="."]
+
+[node name="Block2" type="Polygon2D" parent="Blocks"]
+position = Vector2(0.93, 295.07)
+scale = Vector2(87.91, 3.26)
+color = Color(1.52213e-06, 0.290374, 0.0113603, 1)
+polygon = PackedVector2Array(10, -10, -10, -10, -10, 10, 10, 10)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Blocks/Block2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blocks/Block2/StaticBody2D"]
+shape = SubResource("RectangleShape2D_aapga")
+
+[node name="Block3" parent="Blocks" instance=ExtResource("2_032um")]
+position = Vector2(-496.245, 215.96)
+scale = Vector2(8.1755, 5.57)
+
+[node name="Block4" parent="Blocks" instance=ExtResource("2_032um")]
+position = Vector2(-251.24, 88.68)
+scale = Vector2(-2.005, 1)
+color = Color(0.362829, 0.362829, 0.362829, 1)
+
+[node name="Block5" parent="Blocks" instance=ExtResource("2_032um")]
+position = Vector2(-126.025, 10.545)
+scale = Vector2(-2.005, 1)
+color = Color(0.310617, 0.310617, 0.310617, 1)
+
+[node name="Block6" parent="Blocks" instance=ExtResource("2_032um")]
+position = Vector2(-480.5, -145)
+scale = Vector2(9.46, 1)
+
+[node name="Block7" parent="Blocks" instance=ExtResource("2_032um")]
+position = Vector2(235.545, 185.197)
+scale = Vector2(2.7455, 7.68025)
+color = Color(0, 0, 0, 1)
+
+[node name="StylingStuff" type="Node2D" parent="."]
+
+[node name="BG" type="Polygon2D" parent="StylingStuff"]
+z_index = -1
+color = Color(0, 0.288531, 0.288531, 1)
+polygon = PackedVector2Array(-577, -329, 583, -328, 590, 344, -597, 356)
+
+[node name="Borders" type="Node2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Borders"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/StaticBody2D"]
+position = Vector2(-576.23, 0.62)
+rotation = 1.5708
+shape = SubResource("WorldBoundaryShape2D_4hc04")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Borders"]
+scale = Vector2(-1, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/StaticBody2D2"]
+position = Vector2(-576.23, 0.62)
+rotation = 1.5708
+shape = SubResource("WorldBoundaryShape2D_4hc04")
+
+[node name="Objectives" type="Node2D" parent="."]
+
+[node name="Flag" parent="Objectives" instance=ExtResource("1_qirsa")]
+position = Vector2(363, 41)
+
+[node name="Star" parent="Objectives" instance=ExtResource("3_v4780")]
+position = Vector2(-480.5, -204.36)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[connection signal="gameWon" from="Objectives/Flag" to="." method="_on_flag_game_won"]

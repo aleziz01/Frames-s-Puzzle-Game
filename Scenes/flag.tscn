@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://chhokv5o8qhq8"]
+
+[ext_resource type="Script" path="res://Scripts/flag.gd" id="1_nxb77"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dxixf"]
+size = Vector2(114, 523)
+
+[node name="Flag" type="Polygon2D"]
+scale = Vector2(0.5, 0.5)
+color = Color(0, 1, 0, 1)
+polygon = PackedVector2Array(-0.940002, -0.0500031, 70.06, -76.05, 77.06, 0.949997)
+script = ExtResource("1_nxb77")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0.458405, 0.458405, 0.458405, 1)
+polygon = PackedVector2Array(56.06, -3.05, 51.06, 421.95, 67.06, 421.95, 71.06, -3.05)
+
+[node name="Polygon2D2" type="Polygon2D" parent="."]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(8.06, 412.95, 110.06, 411.95, 115.06, 446.95, -0.940002, 446.95)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(58, 185.5)
+shape = SubResource("RectangleShape2D_dxixf")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]
