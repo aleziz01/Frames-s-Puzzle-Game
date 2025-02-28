@@ -1,7 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://d2eb258knxk4c"]
+[gd_scene load_steps=7 format=3 uid="uid://d2eb258knxk4c"]
 
+[ext_resource type="Shader" path="res://Scenes/Player.gdshader" id="1_8vg0d"]
 [ext_resource type="Texture2D" uid="uid://dlgmak4mjd48a" path="res://ART/icon.svg" id="1_dm2d8"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_ugjdi"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4svte"]
+shader = ExtResource("1_8vg0d")
+shader_parameter/strength = 2.46
+shader_parameter/hue = 11.725
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_nkivy"]
 animations = [{
@@ -18,10 +24,12 @@ animations = [{
 size = Vector2(128, 129)
 
 [node name="Player" type="CharacterBody2D"]
+material = SubResource("ShaderMaterial_4svte")
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_ugjdi")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
+use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_nkivy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
